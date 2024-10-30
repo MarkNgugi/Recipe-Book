@@ -1,0 +1,14 @@
+<h3>Add Ingredient</h3>
+<div class="ingredient-form">
+  <%= form_with(model: [@recipe, @ingredient]) do |form| %>
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+    <div>
+      <%= form.label :quantity %>
+      <%= form.text_field :quantity %>
+    </div>
+    <%= form.submit 'Add Ingredient' %>
+  <% end %>
+</div>

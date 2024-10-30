@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= @recipe.name %></title>
+  <title><%= @recipe.name %> - Recipe Details</title>
   <style>
     /* Reset */
     * {
@@ -15,105 +15,204 @@
     /* Body styling */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #bfa4a4; /* Same background color */
+      background-color: #bfa4a4; /* Background color matching the theme */
+      color: #333;
       display: flex;
       justify-content: center;
       padding: 20px;
-      color: #333;
     }
 
-    /* Container for centering content */
-    .container {
+    /* Container for recipe details */
+    .recipe-container {
       max-width: 800px;
       width: 100%;
-      text-align: center;
       background-color: #fff;
-      padding: 20px;
+      padding: 30px;
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
     }
 
-    /* Page title styling */
+    /* Recipe title */
     h1 {
       font-size: 2.5em;
       color: #444;
-      margin-bottom: 20px;
-      letter-spacing: 1px;
-    }
-
-    /* Recipe details styling */
-    .recipe-detail {
-      margin-bottom: 30px;
-      padding: 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .recipe-description {
-      font-size: 1.2em;
-      color: #666;
       margin-bottom: 15px;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Underline for title */
+    h1::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: #00b894;
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Recipe description */
+    p {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      text-align: center;
     }
 
     /* Ingredients section */
-    .ingredients {
-      text-align: left;
-      margin-top: 20px;
-      padding: 10px;
-      border-top: 2px solid #00b894;
+    h3 {
+      font-size: 2em;
+      color: #444;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      text-align: center;
     }
 
-    .ingredients h3 {
+    /* Ingredients list */
+    .ingredients-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    /* Individual ingredient card */
+    .ingredient-card {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+
+    .ingredient-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Ingredient name and quantity */
+    .ingredient-details {
       margin-bottom: 10px;
-      font-size: 1.5em;
+      font-size: 1.1em;
+      color: #333;
+    }
+
+    /* Delete link */
+    .delete-link {
+      color: #e74c3c; /* Red color for delete link */
+      text-decoration: none;
+      padding: 5px 10px;
+      border: 1px solid #e74c3c;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .delete-link:hover {
+      background-color: #e74c3c;
+      color: #fff;
+    }
+
+    /* Edit and back links */
+    .navigation-links {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .navigation-links a {
+      margin: 0 10px;
       color: #00b894;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
     }
 
-    .ingredient {
-      font-size: 1em;
-      color: #555;
-      margin-bottom: 5px;
+    .navigation-links a:hover {
+      color: #00917c;
     }
 
-    /* Back link styling */
-    .back-link {
+    /* Ingredient form */
+    .ingredient-form {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Form fields */
+    .ingredient-form div {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+
+    .ingredient-form label {
+      font-weight: bold;
+      color: #333;
+    }
+
+    .ingredient-form input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #fff;
+      color: #333;
+      transition: border-color 0.3s;
+    }
+
+    .ingredient-form input[type="text"]:focus {
+      border-color: #00b894;
+      outline: none;
+    }
+
+    /* Submit button */
+    .ingredient-form input[type="submit"] {
       display: inline-block;
-      padding: 10px 20px;
+      padding: 12px 20px;
       color: #fff;
       background-color: #00b894;
-      text-decoration: none;
+      border: none;
       border-radius: 5px;
-      margin-top: 20px;
-      transition: background-color 0.3s;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.3s;
+      width: 100%;
     }
 
-    .back-link:hover {
+    .ingredient-form input[type="submit"]:hover {
       background-color: #00917c;
+      transform: translateY(-2px);
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <div class="recipe-container">
     <h1><%= @recipe.name %></h1>
-    <div class="recipe-detail">
-      <p class="recipe-description"><%= @recipe.description %></p>
+    <p><%= @recipe.description %></p>
+
+    <h3>Ingredients</h3>
+    <div class="ingredients-list">
+      <% @recipe.ingredients.each do |ingredient| %>
+        <div class="ingredient-card">
+          <div class="ingredient-details">
+            <strong><%= ingredient.name %></strong>: <%= ingredient.quantity %>
+          </div>
+          <%= link_to 'Delete', [@recipe, ingredient], method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-link" %>
+        </div>
+      <% end %>
     </div>
 
-    <% if @recipe.ingredients.any? %>
-      <div class="ingredients">
-        <h3>Ingredients:</h3>
-        <% @recipe.ingredients.each do |ingredient| %>
-          <p class="ingredient"><%= ingredient.name %> - <%= ingredient.quantity %></p>
-        <% end %>
-      </div>
-    <% else %>
-      <p>No ingredients added yet.</p>
-    <% end %>
+    <%= render 'ingredients/form' %>
 
-    <%= link_to 'Back to Recipes', recipes_path, class: "back-link" %>
+    <div class="navigation-links">
+      <%= link_to 'Edit Recipe', edit_recipe_path(@recipe) %> |
+      <%= link_to 'Back to Recipes', recipes_path %>
+    </div>
   </div>
 
 </body>

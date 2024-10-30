@@ -37,7 +37,7 @@ class RecipesController < ApplicationController
   def destroy
     @recipe = Recipe.find(params[:id])
     if @recipe.destroy
-      redirect_to recipe_url, notice: "Recipe deleted"
+      redirect_to recipes_url, notice: "Recipe deleted"
     end
   end
 
