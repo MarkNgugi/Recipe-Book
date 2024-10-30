@@ -132,6 +132,7 @@
         <li>
             <%= link_to recipe_path(recipe), class: "recipe-link" do %>
                 <p class="recipe-name"><%= recipe.name %></p>
+                <%= link_to 'Edit',edit_recipe_path(recipe)%>
                 <p class="recipe-description"><%= recipe.description %></p>
             <%end%>
         </li>
