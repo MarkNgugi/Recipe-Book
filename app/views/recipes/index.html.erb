@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recipes</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #bfa4a4; /* Updated background color */
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    /* Container for centering content */
+    .container {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Page title styling */
+    h1 {
+      font-size: 3em;
+      color: #444;
+      margin-bottom: 25px;
+      letter-spacing: 1px;
+      position: relative;
+    }
+
+    /* Underline for title */
+    h1::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 3px;
+      background-color: #00b894;
+      margin: 8px auto 0;
+      border-radius: 2px;
+    }
+
+    /* New Recipe Button */
+    .new-recipe-btn {
+      display: inline-block;
+      padding: 12px 25px;
+      margin: 20px 0 30px;
+      color: #fff;
+      background-color: #00b894;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 1em;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .new-recipe-btn:hover {
+      background-color: #00917c;
+      transform: translateY(-2px);
+    }
+
+    /* Recipe List */
+    ul {
+      list-style-type: none;
+      width: 100%;
+    }
+
+    /* Recipe List Items */
+    li {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+
+    /* Card hover effect with background color change */
+    li:hover {
+      background-color: #e0d0d0;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* Recipe name */
+    .recipe-name {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+      text-transform: capitalize;
+    }
+
+    .recipe-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+
+    /* Subtitle or additional information */
+    .recipe-description {
+      font-size: 1em;
+      color: #666;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>RECIPES</h1>
+    <a class="new-recipe-btn" href="<%= new_recipe_path %>">+ New Recipe</a>
+
+    <ul>
+      <% @recipes.each do |recipe| %>
+        <li>
+            <%= link_to recipe_path(recipe), class: "recipe-link" do %>
+                <p class="recipe-name"><%= recipe.name %></p>
+                <p class="recipe-description"><%= recipe.description %></p>
+            <%end%>
+        </li>
+      <% end %>
+    
+  </div>
+
+</body>
+</html>

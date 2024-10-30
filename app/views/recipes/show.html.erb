@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @recipe.name %></title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Body styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #bfa4a4; /* Same background color */
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      color: #333;
+    }
+
+    /* Container for centering content */
+    .container {
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Page title styling */
+    h1 {
+      font-size: 2.5em;
+      color: #444;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+
+    /* Recipe details styling */
+    .recipe-detail {
+      margin-bottom: 30px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .recipe-description {
+      font-size: 1.2em;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    /* Ingredients section */
+    .ingredients {
+      text-align: left;
+      margin-top: 20px;
+      padding: 10px;
+      border-top: 2px solid #00b894;
+    }
+
+    .ingredients h3 {
+      margin-bottom: 10px;
+      font-size: 1.5em;
+      color: #00b894;
+    }
+
+    .ingredient {
+      font-size: 1em;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    /* Back link styling */
+    .back-link {
+      display: inline-block;
+      padding: 10px 20px;
+      color: #fff;
+      background-color: #00b894;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .back-link:hover {
+      background-color: #00917c;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1><%= @recipe.name %></h1>
+    <div class="recipe-detail">
+      <p class="recipe-description"><%= @recipe.description %></p>
+    </div>
+
+    <% if @recipe.ingredients.any? %>
+      <div class="ingredients">
+        <h3>Ingredients:</h3>
+        <% @recipe.ingredients.each do |ingredient| %>
+          <p class="ingredient"><%= ingredient.name %> - <%= ingredient.quantity %></p>
+        <% end %>
+      </div>
+    <% else %>
+      <p>No ingredients added yet.</p>
+    <% end %>
+
+    <%= link_to 'Back to Recipes', recipes_path, class: "back-link" %>
+  </div>
+
+</body>
+</html>
