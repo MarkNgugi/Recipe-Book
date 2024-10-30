@@ -123,22 +123,27 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>RECIPES</h1>
-    <%= link_to '+ New Recipe', new_recipe_path, class: "new-recipe-btn" %>
+<div class="container"> 
+  <h1>RECIPES</h1>
+  <%= link_to '+ New Recipe', new_recipe_path, class: "new-recipe-btn" %>
 
-    <ul>
-      <% @recipes.each do |recipe| %>
-        <li>
-            <%= link_to recipe_path(recipe), class: "recipe-link" do %>
-                <p class="recipe-name"><%= recipe.name %></p>
-                <%= link_to 'Edit',edit_recipe_path(recipe)%>
-                <p class="recipe-description"><%= recipe.description %></p>
-            <%end%>
-        </li>
-      <% end %>
-    
-  </div>
+  <ul>
+    <% @recipes.each do |recipe| %>
+      <li>
+        <%= link_to recipe_path(recipe), class: "recipe-link" do %>
+          <p class="recipe-name"><%= recipe.name %></p>
+          <p class="recipe-description"><%= recipe.description %></p>
+        <% end %>
+
+        <%= link_to 'Edit', edit_recipe_path(recipe)%>
+
+        
+        <%= link_to 'Delete', recipe_path(recipe), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
 
 </body>
 </html>
